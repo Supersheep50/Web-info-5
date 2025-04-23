@@ -67,13 +67,17 @@ function JourneyPlans() {
     };  
 
     const handleEdit = (plan) => {
-        setForm({
-            ...plan,
-            locations: JSON.parse(plan.locations).join(', '),
-            activities: JSON.parse(plan.activities).join(', ')  
-        });
-        setEditId(plan.id);
+      setForm({
+        name: plan.name,
+        locations: JSON.parse(plan.locations).join(', '),
+        start_date: plan.start_date?.slice(0, 10) || '',
+        end_date: plan.end_date?.slice(0, 10) || '',
+        activities: JSON.parse(plan.activities).join(', '),
+        description: plan.description
+      });
+      setEditId(plan.id);
     };
+    
 
     const handleDelete = (id) => {
         fetch(`http://localhost:5050/api/journey-plans/${id}`, {
@@ -168,8 +172,8 @@ function JourneyPlans() {
               <div className="card-body">
                 <h5>{plan.name}</h5>
                 <p>{plan.description}</p>
-                <p><strong>Start:</strong> {plan.start_date}</p>
-                <p><strong>End:</strong> {plan.end_date}</p>
+                <p><strong>Start:</strong> {plan.start_date?.slice(0, 10)}</p>
+                <p><strong>End:</strong> {plan.end_date?.slice(0, 10)}</p>
                 <p><strong>Locations:</strong> {JSON.parse(plan.locations).join(', ')}</p>
                 <p><strong>Activities:</strong> {JSON.parse(plan.activities).join(', ')}</p>
                 <button className="btn btn-primary me-2" onClick={() => handleEdit(plan)}>Edit</button>

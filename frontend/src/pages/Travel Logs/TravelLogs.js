@@ -27,7 +27,7 @@ const fetchLogs = ()  => {
       setLogs(data);
     } else {
       console.error('Expected array but got:', data);
-      setLogs([]); // fallback to avoid map crash
+      setLogs([]); 
     }
   })
   
@@ -82,9 +82,17 @@ setForm({
 };
 
 const handleEdit = (log) => {
-    setForm({...log, tags:JSON.parse(log.tags).join(',')});
-    setEditId(log.id);
+  setForm({
+    title: log.title,
+    description: log.description,
+    start_date: log.start_date?.slice(0, 10) || '',
+    end_date: log.end_date?.slice(0, 10) || '',
+    post_date: log.post_date?.slice(0, 10) || '',
+    tags: JSON.parse(log.tags).join(', ')
+  });
+  setEditId(log.id);
 };
+
 
 const handleDelete = (id) => {
     fetch(`http://localhost:5050/api/travel-logs/${id}`, {
@@ -142,9 +150,10 @@ return (
           <div className="card-body">
             <h5>{log.title}</h5>
             <p>{log.description}</p>
-            <p><strong>Start:</strong> {log.start_date}</p>
-            <p><strong>End:</strong> {log.end_date}</p>
-            <p><strong>Posted:</strong> {log.post_date}</p>
+            <p><strong>Start:</strong> {log.start_date?.slice(0, 10)}</p>
+            <p><strong>End:</strong> {log.end_date?.slice(0, 10)}</p>
+
+            <p><strong>Posted:</strong> {log.post_date?.slice(0, 10)}</p>
             <p><strong>Tags:</strong> {JSON.parse(log.tags).join(', ')}</p>
             <button className="btn btn-primary me-2" onClick={() => handleEdit(log)}>Edit</button>
             <button className="btn btn-danger" onClick={() => handleDelete(log.id)}>Delete</button>

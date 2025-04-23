@@ -3,7 +3,7 @@ const router = express.Router();
 const travelLogController = require('../controllers/travelLogController');
 const authenticate = require('../middleware/authenticate');
 
-router.use(authenticate); // Protect all routes below
+router.use(authenticate); 
 
 router.get('/', travelLogController.getAllTravelLogs);
 router.post('/', travelLogController.createTravelLog);

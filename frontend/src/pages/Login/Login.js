@@ -25,7 +25,7 @@ function Login() {
           setUserInfo(data.user);
           setError('');
           localStorage.setItem('userId', data.user.id);
-          navigate('/travel-logs'); // Navigate to Travel Logs after successful login
+          navigate('/travel-logs');
         }
       })
       

@@ -3,7 +3,7 @@ const router = express.Router();
 const journeyPlanController = require('../controllers/journeyPlanController');
 const authenticate = require('../middleware/authenticate');
 
-router.use(authenticate); // All routes protected
+router.use(authenticate); 
 
 router.get('/', journeyPlanController.getAllJourneyPlans);
 router.post('/', journeyPlanController.createJourneyPlan);
